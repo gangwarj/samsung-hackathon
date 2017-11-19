@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SAMSUNG | Log in</title>
+
+  <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        
+    <!-- JQuery Confirm -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>
+    <link href="./css/index.css" rel="stylesheet">    
+    
+</head>
+<body class="hold-transition login-page">
+    <div id="fullscreen_bg" class="fullscreen_bg"/>
+
+        <div class="container">
+            <div class="row vertical-offset-100">
+                <h1 class="form-signin-heading text-muted">HACK2INNOVATE | SAMSUNG</h1>
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><b>Please sign in to enter</b></h3>
+                        </div>
+                        <div class="panel-body">
+                            <form accept-charset="UTF-8" role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Username" id="username" name="username" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" id="password" name="password" type="password" value="">
+                                </div>
+                               <!--  <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me"> Remember Me
+                                    </label>
+                                </div> -->
+                                <input class="btn btn-lg btn-success btn-block" type="button" id="loginBtn" value="Login">
+                            </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>
+<!-- <script src="js/login.js" ></script> -->
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        jconfirm.defaults = {
+            icon: 'fa fa-warning',
+            backgroundDismiss: false,
+            backgroundDismissAnimation: 'glow',
+            escapeKey: true,
+            closeIcon:true,
+            theme:'modern',
+            title: 'Attention!',
+            autoClose: 'Cancel|15000',
+            animation: 'scaleX',
+            animationSpeed: 500,
+            type: 'red',
+            animationBounce: 1.5,
+        }
+
+        $(document.body).on('click', '#loginBtn', function(){
+            var username = $('#username').val();
+            var password = $('#password').val();
+            console.log(username)
+            console.log(password)
+            $.ajax({
+                type:"POST",
+                url:"http://192.168.43.239:5050/loginUser",
+                data:{username:username, password:password},
+                success:function(data){
+                    console.log(data);
+                    data = data['response'];
+                    console.log(data['response'])
+                    if(data == "Success")
+                       location.href = "dashboard.html"
+                    else
+                        $.confirm({
+                            content:"Please Input correct credentials to proceed",
+                            buttons:{
+                                OK:{
+                                    btnClass:"btn-red"
+                                },
+                                Cancel:{
+                                    btnClass:"btn-green",
+                                    isHidden:true
+                                }
+                            }
+                        })
+                }
+
+            })
+        })
+    })
+</script>
