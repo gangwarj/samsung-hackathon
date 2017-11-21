@@ -83,7 +83,8 @@ $(document).ready(function(){
                         $('#weatherPrediction tbody').append(rw)
                     }
                     $('#headMain').text(data[0][0])
-                    $('#headSec').text(data[0][1])
+                    var txt = "SUMMARY:   "+data[0][1] 
+                    $('#headSec').text(txt)
                     
 
                     
